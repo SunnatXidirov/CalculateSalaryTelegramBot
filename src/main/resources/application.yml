@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+  security:
+   user:
+     name: "1122"
+     password: "1122"
+
+telegram:
+  bot:
+    path: "/webhook"
+    username: "info_salary_bot"
+    token: "7836600588:AAF72cif-47HaWEfg8vYF9bPd5ymHmVlKjg"
+    webhook-url: "https://9db9-213-230-86-18.ngrok-free.app/webhook"
