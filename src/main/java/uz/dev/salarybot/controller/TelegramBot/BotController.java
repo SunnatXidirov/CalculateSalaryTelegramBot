@@ -22,29 +22,20 @@ import java.util.List;
 
 @RestController
 @EnableAsync
-@RequiredArgsConstructor
 @RequestMapping("/webhook")
 public class BotController {
 
     private final BotService botService;
 
+    public BotController(BotService botService) {
+        this.botService = botService;
+    }
+
     @PostMapping
     public BotApiMethod<?> onUpdateReceived(@RequestBody Update update) {
-
-        if (botService.checkUser(update.getMessage().getChatId())) {
-            botService.enterMenu(update);
-        } else {
-            sendMessage(update.getMessage().getChatId(), "Enter Password:");
-        }
-        return sendMessage(update.getMessage().getChatId(), "http stats code :500");
+        return botService.checkedUser(update);
     }
 
-    private BotApiMethod<?> sendMessage(Long chatId, String text) {
-        return SendMessage.builder()
-                .chatId(chatId.toString())
-                .text(text)
-                .build();
-    }
 }
 
 

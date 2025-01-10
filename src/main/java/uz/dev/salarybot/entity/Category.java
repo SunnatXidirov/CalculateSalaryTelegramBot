@@ -7,7 +7,6 @@ import java.util.Date;
 public class Category {
 
     private String name;
-    private Date createAt;
-    private Date updateAt;
+
 
 }
