@@ -2,6 +2,20 @@ server:
   port: 8080
 
 
+jwt:
+  access:
+    token:
+      secret: U0RGVyQ0MzUzZnNkRyUkXiQlXjxERkhHPE9ZVUslJF4+SkhGR0pUUllVJV4=
+      expiry:
+        adding:
+          amount: 2
+  refresh:
+    token:
+      secret: c2RGJF4lJiVeKERGR05NU0RGR0xFRktHREZMT0pUIylUIyQlXiMkJV9eJCVe
+      expiry:
+        adding:
+          amount: 10
+
 spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
@@ -19,7 +33,13 @@ telegram:
 
 notion:
   database:
-    version: "2020-08-12"
-    id: "17691cb8af44808cb6e6e572e0bc4881"
+    version: "2022-06-28"
+    id: "17791cb8af44809aa050ce4728458b4d"
     token: "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"
     base-url: "https://api.notion.com/v1"
+
+springdoc:
+  swagger-ui:
+    try-it-out-enabled: on
+
+
