@@ -8,14 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Getter
-@Setter
+
 public class Database {
 
     private String object;
 
-//    @JsonProperty(value = "results")
-//    private List<Page> pages = new ArrayList<>();
+    @JsonProperty(value = "results")
+    private List<Page> pages = new ArrayList<>();
 
     @JsonProperty("next_cursor")
     private Boolean nextCursor;
@@ -23,6 +22,38 @@ public class Database {
     @JsonProperty("has_more")
     private Boolean hasMore;
 
+
+    public String getObject() {
+        return object;
+    }
+
+    public void setObject(String object) {
+        this.object = object;
+    }
+
+    public List<Page> getPages() {
+        return pages;
+    }
+
+    public void setPages(List<Page> pages) {
+        this.pages = pages;
+    }
+
+    public Boolean getNextCursor() {
+        return nextCursor;
+    }
+
+    public void setNextCursor(Boolean nextCursor) {
+        this.nextCursor = nextCursor;
+    }
+
+    public Boolean getHasMore() {
+        return hasMore;
+    }
+
+    public void setHasMore(Boolean hasMore) {
+        this.hasMore = hasMore;
+    }
 
     @Override
     public String toString() {

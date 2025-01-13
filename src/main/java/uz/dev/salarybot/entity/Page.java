@@ -2,8 +2,7 @@ package uz.dev.salarybot.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.time.LocalDateTime;
 public class Page {

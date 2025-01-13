@@ -20,12 +20,9 @@ public class AppConfig {
 
 
     @Bean
-    public WebClient webClient() {
-        return WebClient.create();
-    }
-
-    @Bean
     public RestTemplate restTemplate() {
+
+
         return new RestTemplate();
     }
 
@@ -36,6 +33,8 @@ public class AppConfig {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
     }
+
+
 
     @Bean
     public SendMessage sendMessage() {

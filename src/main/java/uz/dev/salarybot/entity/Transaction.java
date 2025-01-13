@@ -16,6 +16,6 @@ public class Transaction {
     private Long id;
     private BigDecimal totalSum;
     private LocalDateTime date;
-    private Set<String> costCategoryIds;
+    private String costCategoryType;
 
 }
