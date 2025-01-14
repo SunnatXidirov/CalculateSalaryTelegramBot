@@ -2,7 +2,8 @@ package uz.dev.salarybot.entity;
 
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
@@ -10,8 +11,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class Customer {
-    private Long userId;
+    private UUID id;
     private String fullName;
     private String phone;
-    private Set<String> serviceTypesId;
+    private List<String> serviceTypesId;
 }

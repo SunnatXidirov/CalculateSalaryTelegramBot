@@ -40,7 +40,7 @@ public class TransactionTypeController {
 
     @GetMapping("/getById")
     public ResponseEntity<?> getById(@RequestParam Long id) {
-        List<Page> pages = typeService.getById(id);
+        List<Page> pages = typeService.getById(String.valueOf(id));
         return ResponseEntity.ok(pages);
     }
 

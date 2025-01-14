@@ -29,7 +29,7 @@ public class CostCategoryController {
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<?> getById(@RequestParam Long id) {
+    public ResponseEntity<?> getById(@RequestParam String id) {
         List<Page> page = costCategoryService.getById(id);
         return ResponseEntity.ok(page);
     }

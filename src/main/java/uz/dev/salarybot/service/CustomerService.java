@@ -4,20 +4,20 @@ import org.springframework.stereotype.Service;
 import uz.dev.salarybot.dto.RequestDto;
 import uz.dev.salarybot.entity.Database;
 import uz.dev.salarybot.entity.Page;
-import uz.dev.salarybot.entity.recordClasses.TransactionType;
+import uz.dev.salarybot.entity.recordClasses.MoneyType;
 
 import java.util.List;
 
 @Service
-public class TransactionTypeService {
+public class CustomerService {
 
-    private final String databaseId="17a91cb8af4480b09263ceedfd43694b";
+    private final String databaseId = "17a91cb8af4480cf9f74e3da445ed58a";
     private final DatabaseService databaseService;
 
-
-    public TransactionTypeService(DatabaseService databaseService) {
+    public CustomerService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }
+
 
     public List<Page> getAll() {
         Database database = databaseService.queryGetAll(databaseId);
@@ -33,9 +33,8 @@ public class TransactionTypeService {
         return databaseService.saveByNameAndId(databaseId, dto);
     }
 
-    public String update(TransactionType TransactionType) {
-        return databaseService.update(databaseId,String.valueOf(TransactionType.id()),
-                TransactionType.name(), TransactionType.createdAt(),TransactionType.updatedAt());
+    public String update(MoneyType moneyType) {
+        return databaseService.update(databaseId, String.valueOf(moneyType.id()),
+                moneyType.name(), moneyType.createdAt(), moneyType.updatedAt());
     }
-
 }

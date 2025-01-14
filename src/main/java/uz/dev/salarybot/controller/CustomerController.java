@@ -3,10 +3,16 @@ package uz.dev.salarybot.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.dev.salarybot.dto.CustomerDto;
+import uz.dev.salarybot.service.CustomerService;
 
 @RestController
 @RequestMapping("/notion/costumer")
 public class CustomerController {
+    private final CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @PostMapping("/add")
     public ResponseEntity<?> addTypesOfService(@RequestBody CustomerDto typesDto){

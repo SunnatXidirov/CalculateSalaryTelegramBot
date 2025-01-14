@@ -1,22 +1,21 @@
 package uz.dev.salarybot.entity.recordClasses;
 
-import lombok.Getter;
-import lombok.Setter;
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 public class CostCategory {
-    private Long id;
+    private UUID id;
     private String name;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

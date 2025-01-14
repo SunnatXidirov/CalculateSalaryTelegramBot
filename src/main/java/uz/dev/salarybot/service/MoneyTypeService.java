@@ -23,7 +23,7 @@ public class MoneyTypeService {
         return database.getPages();
     }
 
-    public List<Page> getById(Long id) {
+    public List<Page> getById(String id) {
         Database database = databaseService.queryGetId(databaseId, id);
         return database.getPages();
     }
@@ -33,7 +33,7 @@ public class MoneyTypeService {
     }
 
     public String update(MoneyType moneyType) {
-        return databaseService.update(databaseId,moneyType.id(),
+        return databaseService.update(databaseId,String.valueOf(moneyType.id()),
                 moneyType.name(), moneyType.createdAt(),moneyType.updatedAt());
     }
 }

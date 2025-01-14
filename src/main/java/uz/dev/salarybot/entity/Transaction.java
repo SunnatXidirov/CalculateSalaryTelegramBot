@@ -5,6 +5,7 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
@@ -13,9 +14,9 @@ import java.util.Set;
 @Builder
 public class Transaction {
 
-    private Long id;
+    private UUID id;
     private BigDecimal totalSum;
     private LocalDateTime date;
-    private String costCategoryType;
+    private String costCategoryTypeId;
 
 }

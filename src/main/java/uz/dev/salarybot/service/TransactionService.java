@@ -2,20 +2,19 @@ package uz.dev.salarybot.service;
 
 import org.springframework.stereotype.Service;
 import uz.dev.salarybot.dto.RequestDto;
+import uz.dev.salarybot.dto.TransactionDto;
 import uz.dev.salarybot.entity.Database;
 import uz.dev.salarybot.entity.Page;
-import uz.dev.salarybot.entity.recordClasses.TransactionType;
+import uz.dev.salarybot.entity.recordClasses.MoneyType;
 
 import java.util.List;
 
 @Service
-public class TransactionTypeService {
-
-    private final String databaseId="17a91cb8af4480b09263ceedfd43694b";
+public class TransactionService {
+    private final String databaseId = "17a91cb8af448059bc64ea3a3a1f084a";
     private final DatabaseService databaseService;
 
-
-    public TransactionTypeService(DatabaseService databaseService) {
+    public TransactionService(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }
 
@@ -29,13 +28,9 @@ public class TransactionTypeService {
         return database.getPages();
     }
 
-    public String save(RequestDto dto) {
-        return databaseService.saveByNameAndId(databaseId, dto);
+    public String save(TransactionDto dto) {
+        return databaseService.saveTransaction(databaseId, dto);
     }
 
-    public String update(TransactionType TransactionType) {
-        return databaseService.update(databaseId,String.valueOf(TransactionType.id()),
-                TransactionType.name(), TransactionType.createdAt(),TransactionType.updatedAt());
-    }
 
 }

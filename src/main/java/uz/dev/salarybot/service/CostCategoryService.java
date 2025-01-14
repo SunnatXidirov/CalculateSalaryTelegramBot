@@ -28,7 +28,7 @@ public class CostCategoryService {
         return database.getPages();
     }
 
-    public List<Page> getById(Long id) {
+    public List<Page> getById(String id) {
         Database database = databaseService.queryGetId(databaseId, id);
         return database.getPages();
     }
@@ -38,7 +38,7 @@ public class CostCategoryService {
     }
 
     public String update(CostCategory costCategory) {
-       return databaseService.update(databaseId,costCategory.getId(),
+       return databaseService.update(databaseId,String.valueOf(costCategory.getId()),
                costCategory.getName(),costCategory.getCreatedAt(),costCategory.getUpdatedAt());
     }
 }

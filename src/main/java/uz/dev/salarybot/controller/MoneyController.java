@@ -38,7 +38,7 @@ public class MoneyController {
     }
 
     @GetMapping("/getById")
-    public ResponseEntity<?> getById(@RequestParam Long id) {
+    public ResponseEntity<?> getById(@RequestParam String id) {
         List<Page> pages = typeService.getById(id);
         return ResponseEntity.ok(pages);
     }

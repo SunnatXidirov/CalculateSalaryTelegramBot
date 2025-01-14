@@ -1,6 +1,7 @@
 package uz.dev.salarybot.service;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
@@ -10,14 +11,23 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+import uz.dev.salarybot.entity.Database;
+import uz.dev.salarybot.entity.Page;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
 public class BotService {
+    private final String databaseId = "17a91cb8af44806c9efee87ed7f3105d";
     private final Logger logger = LoggerFactory.getLogger(BotService.class);
+    private final DatabaseService databaseService;
+
+    public BotService(DatabaseService databaseService) {
+        this.databaseService = databaseService;
+    }
 
     public BotApiMethod<?> checkedUser(Update update) {
 
@@ -29,7 +39,8 @@ public class BotService {
                 if (messageText.equalsIgnoreCase("/start")) {
                     return sendMessage(chatId, "Xush kelibsiz! \n Parolingizni kiriting:");
                 } else if (isValidPassword(messageText)) {
-                    //do user save
+                    ///do user save
+
                     return sendMainMenu(chatId);
                 } else {
                     return sendMessage(chatId, "Noto'g'ri parol! Iltimos, qaytadan kiriting.");
@@ -44,31 +55,35 @@ public class BotService {
         return sendMainMenu(update.getMessage().getChatId());
     }
 
-    private boolean checkUser(Long ChatId) {
-        ///  userni databasedan tekshirish kerak authentication
-        return false;
+    private boolean checkUser(Long chatId) {
+        Database database = databaseService.queryGetChatId(databaseId, chatId);
+        List<Page> pages = database.getPages();
+        for (Page page : pages) {
+            if (page.getProperties() == null)
+                return false;
+        }
+        return true;
     }
 
+    private BotApiMethod<?> change_password(Long chatId) {
+        Database database = databaseService.queryGetChatId(databaseId, chatId);
+        List<Page> pages = database.getPages();
+        for (Page page : pages) {
+            if (page.getProperties() != null){
 
-    private BotApiMethod<?> sendMainMenu(Long chatId) {
+            }
 
-        InlineKeyboardMarkup markup = InlineKeyboardMarkup.builder()
-                .keyboardRow(List.of(
-                        InlineKeyboardButton.builder().text("\uD83D\uDDC2Hisobotlar").callbackData("hisobotlar").build(),
-                        InlineKeyboardButton.builder().text("⚙\uFE0FSozlamalar").callbackData("sozlamalar").build()
-                ))
-                .build();
-
-        return SendMessage.builder()
-                .chatId(chatId.toString())
-                .text("Xush kelibsiz! Asosiy menyudan tanlang:")
-                .replyMarkup(markup)
-                .build();
+        }
+        return sendMessage(chatId, "change password menusi");
     }
-
     public boolean isValidPassword(String password) {
-        /// passwordni databasedan tekshirish kerak
-        return password.equals("1234");
+        Database database = databaseService.queryGetByPassword(databaseId, password);
+        List<Page> pages = database.getPages();
+        for (Page page : pages) {
+            if (page.getProperties() == null)
+                return false;
+        }
+        return true;
     }
 
     public BotApiMethod<?> handleAuthenticatedUser(Long chatId, String messageText) {
@@ -101,6 +116,22 @@ public class BotService {
         }
 
         return sendMainMenu(chatId);
+    }
+
+    private BotApiMethod<?> sendMainMenu(Long chatId) {
+
+        InlineKeyboardMarkup markup = InlineKeyboardMarkup.builder()
+                .keyboardRow(List.of(
+                        InlineKeyboardButton.builder().text("\uD83D\uDDC2Hisobotlar").callbackData("hisobotlar").build(),
+                        InlineKeyboardButton.builder().text("⚙\uFE0FSozlamalar").callbackData("sozlamalar").build()
+                ))
+                .build();
+
+        return SendMessage.builder()
+                .chatId(chatId.toString())
+                .text("Xush kelibsiz! Asosiy menyudan tanlang:")
+                .replyMarkup(markup)
+                .build();
     }
 
 
@@ -142,7 +173,7 @@ public class BotService {
                 .keyboardRow(List.of(
                         InlineKeyboardButton.builder().text("\uD83D\uDC64Proflie ma'lumotlari").callbackData("profile").build(),
                         InlineKeyboardButton.builder().text("✅Kirish huquqlar").callbackData("huquqlar").build()
-                        ))
+                ))
                 .keyboardRow(List.of(
                         InlineKeyboardButton.builder().text("\uD83D\uDD04Parolni o'zgartirish").callbackData("parol").build()
                 ))
@@ -155,10 +186,7 @@ public class BotService {
                 .build();
     }
 
-    private BotApiMethod<?> change_password(Long chatId) {
 
-        return sendMessage(chatId, "change password menusi");
-    }
 
     private BotApiMethod<?> kirish_huquqlar(Long chatId) {
         return sendMessage(chatId, "kirish huquqlari menusi");
@@ -166,6 +194,13 @@ public class BotService {
 
     private BotApiMethod<?> profile(Long chatId) {
         return sendMessage(chatId, "prifile menusi");
+    }
+
+    private BotApiMethod<?> sendMessage(Long chatId, String text) {
+        return SendMessage.builder()
+                .chatId(chatId.toString())
+                .text(text)
+                .build();
     }
 
 
@@ -185,13 +220,6 @@ public class BotService {
             return update.getCallbackQuery().getData();
         }
         return "";
-    }
-
-    private BotApiMethod<?> sendMessage(Long chatId, String text) {
-        return SendMessage.builder()
-                .chatId(chatId.toString())
-                .text(text)
-                .build();
     }
 
 }
